@@ -1,12 +1,8 @@
-namespace Vidly.Migrations
-{
-    using System;
+namespace Vidly.Migrations {
     using System.Data.Entity.Migrations;
     
-    public partial class AddMembershipType : DbMigration
-    {
-        public override void Up()
-        {
+    public partial class AddMembershipType : DbMigration {
+        public override void Up() {
             CreateTable(
                 "dbo.MembershipTypes",
                 c => new
@@ -23,8 +19,7 @@ namespace Vidly.Migrations
             AddForeignKey("dbo.Customers", "MembershipTypeId", "dbo.MembershipTypes", "Id", cascadeDelete: true);
         }
         
-        public override void Down()
-        {
+        public override void Down() {
             DropForeignKey("dbo.Customers", "MembershipTypeId", "dbo.MembershipTypes");
             DropIndex("dbo.Customers", new[] { "MembershipTypeId" });
             DropColumn("dbo.Customers", "MembershipTypeId");

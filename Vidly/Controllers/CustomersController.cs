@@ -1,12 +1,10 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Web.Mvc;
+﻿using System.Linq;
 using Vidly.Models;
-using Vidly.ViewModels;
+using System.Web.Mvc;
+using System.Collections.Generic;
 
 namespace Vidly.Controllers {
 	public class CustomersController : Controller {
-		// GET: Customers
 		public ViewResult Index() {
 			return View(GetCustomers());
 		}

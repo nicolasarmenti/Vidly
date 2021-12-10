@@ -1,12 +1,8 @@
-namespace Vidly.Migrations
-{
-    using System;
+namespace Vidly.Migrations {
     using System.Data.Entity.Migrations;
     
-    public partial class InitialModel : DbMigration
-    {
-        public override void Up()
-        {
+    public partial class InitialModel : DbMigration {
+        public override void Up() {
             CreateTable(
                 "dbo.Customers",
                 c => new
@@ -92,11 +88,9 @@ namespace Vidly.Migrations
                 .PrimaryKey(t => new { t.LoginProvider, t.ProviderKey, t.UserId })
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
-            
         }
         
-        public override void Down()
-        {
+        public override void Down() {
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");

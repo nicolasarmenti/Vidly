@@ -1,15 +1,14 @@
 ﻿using Vidly.Models;
 using System.Web.Mvc;
-using System.Collections.Generic;
 using Vidly.ViewModels;
+using System.Collections.Generic;
 
 namespace Vidly.Controllers {
 	public class MoviesController : Controller {
 		// GET: Movies/Random
 		public ActionResult Random() {
 			var movie = new Movie() { Name = "Shrek!" };
-			var customers = new List<Customer>
-			{
+			var customers = new List<Customer> {
 				new Customer {Name = "Costumer 1" },
 				new Customer {Name = "Costumer 2" }
 			};
