@@ -8,11 +8,7 @@ namespace Vidly.Controllers {
 	public class CustomersController : Controller {
 		// GET: Customers
 		public ViewResult Index() {
-			var viewModel = new CustomersViewModel {
-				Customers = GetCustomers()
-			};
-
-			return View(viewModel);
+			return View(GetCustomers());
 		}
 
 		[Route("custoemrs/details/{id:range(1, 99999999)}")]

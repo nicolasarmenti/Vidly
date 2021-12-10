@@ -1,4 +1,4 @@
-﻿@model Vidly.ViewModels.MoviesViewModel
+﻿@model IEnumerable<Vidly.Models.Movie>
 @{
 	ViewBag.Title = "Index";
 	Layout = "~/Views/Shared/_Layout.cshtml";
@@ -6,13 +6,13 @@
 
 <h2>Movies</h2>
 
-@if (Model.Movies.Count == 0) {
+@if (!Model.Any()) {
 	<text>We don't have movies yet</text>
 } else {
 	<table class="table">
 		<thead><tr><th>Movie</th></tr></thead>
 		<tbody>
-			@foreach (var movie in Model.Movies) {
+			@foreach (var movie in Model) {
 				<tr>
 					<td>@movie.Name</td>
 				</tr>
