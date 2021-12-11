@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using Vidly.Models;
 using System.Web.Mvc;
-using System.Collections.Generic;
+using System.Data.Entity;
 
 namespace Vidly.Controllers {
 	public class CustomersController : Controller {
@@ -19,8 +19,9 @@ namespace Vidly.Controllers {
 		public ViewResult Index() {
 			//return View(GetCustomers());
 
-			var customers = _Context.Customers; //defered execution
 			//var customers = _Context.Customers.ToList(); //inmediate execution
+			//var customers = _Context.Customers; //defered execution
+			var customers = _Context.Customers.Include(c => c.MembershipType); //defered execution + eager loading
 
 			return View(customers);
 		}
