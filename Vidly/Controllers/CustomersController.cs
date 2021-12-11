@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using Vidly.Models;
 using System.Web.Mvc;
+using Vidly.ViewModels;
 using System.Data.Entity;
 
 namespace Vidly.Controllers {
@@ -37,7 +38,19 @@ namespace Vidly.Controllers {
 		}
 
 		public ActionResult New() {
-			return View();
+			var viewModel = new NewCustomerViewModel() {
+				MembershipTypes = _Context.MembershipTypes
+			};
+
+			return View(viewModel);
+		}
+
+		[HttpPost]
+		public ActionResult Create(Customer customer) {
+			_Context.Customers.Add(customer);
+			_Context.SaveChanges();
+
+			return RedirectToAction("Index", "Customers");
 		}
 	}
 }
