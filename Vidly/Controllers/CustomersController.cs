@@ -28,7 +28,7 @@ namespace Vidly.Controllers {
 
 		[Route("custoemrs/details/{id:range(1, 99999999)}")]
 		public ActionResult Details(int id) {
-			var customer = _Context.Customers.SingleOrDefault(c => c.Id == id); //inmediate execution
+			var customer = _Context.Customers.Include(c => c.MembershipType).SingleOrDefault(c => c.Id == id); //inmediate execution + eager loading
 
 			if (customer == null)
 				return HttpNotFound();
