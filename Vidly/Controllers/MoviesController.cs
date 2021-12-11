@@ -1,53 +1,33 @@
-﻿using Vidly.Models;
+﻿using System.Linq;
+using Vidly.Models;
 using System.Web.Mvc;
-using Vidly.ViewModels;
-using System.Collections.Generic;
+using System.Data.Entity;
 
 namespace Vidly.Controllers {
 	public class MoviesController : Controller {
-		// GET: Movies/Random
-		public ActionResult Random() {
-			var movie = new Movie() { Name = "Shrek!" };
-			var customers = new List<Customer> {
-				new Customer {Name = "Costumer 1" },
-				new Customer {Name = "Costumer 2" }
-			};
+		private ApplicationDbContext _Context;
 
-			var viewModel = new RandomMovieViewModel()
-			{
-				Movie = movie,
-				Customers = customers
-			};
-
-			//ViewData["Movie"] = movie; //NO
-			//ViewBag.Movie = movie; //NO
-
-			return View(viewModel); // = return new ViewResult();
-
-			//return Content("Hello World!");
-			//return HttpNotFound();
-			//return new EmptyResult();
-			//return RedirectToAction("Index", "Home", new { page = 1, sortBy = "name" });
+		public MoviesController() {
+			_Context = new ApplicationDbContext();
 		}
 
-		public ActionResult Edit(int id) {
-			return Content("id=" + id);
+		protected override void Dispose(bool disposing) {
+			base.Dispose(disposing);
+			_Context.Dispose();
 		}
 
 		public ActionResult Index() {
-			return View(GetMovies());
+			return View(_Context.Movies.Include(c => c.Genre));
 		}
 
-		[Route("movies/released/{year}/{month:regex(\\d{2}):range(1, 12)}")]
-		public ActionResult ByReleaseDate(int year, int month){
-			return Content(year + "/" + month);
-		}
+		[Route("movies/details/{id:range(1, 99999999)}")]
+		public ActionResult Details(int id) {
+			var movie = _Context.Movies.Include(c => c.Genre).SingleOrDefault(c => c.Id == id); //inmediate execution + eager loading
 
-		private IEnumerable<Movie> GetMovies() {
-			return new List<Movie> {
-				new Movie { Id = 1, Name = "Shrek!" },
-				new Movie { Id = 2, Name = "Wall-E" }
-			};
+			if (movie == null)
+				return HttpNotFound();
+
+			return View(movie);
 		}
 	}
 }
