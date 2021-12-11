@@ -11,8 +11,9 @@ namespace Vidly.Migrations {
                         Name = c.String(nullable: false, maxLength: 100),
                     })
                 .PrimaryKey(t => t.Id);
-            
-            AddColumn("dbo.Movies", "GenreId", c => c.Byte(nullable: false));
+
+			AlterColumn("dbo.Movies", "Name", c => c.String(nullable: false, maxLength: 100));
+			AddColumn("dbo.Movies", "GenreId", c => c.Byte(nullable: false));
             AddColumn("dbo.Movies", "ReleaseDate", c => c.DateTime(nullable: false));
             AddColumn("dbo.Movies", "DateAdded", c => c.DateTime(nullable: false));
             AddColumn("dbo.Movies", "Stock", c => c.Byte(nullable: false));
@@ -34,6 +35,7 @@ namespace Vidly.Migrations {
             DropColumn("dbo.Movies", "ReleaseDate");
             DropColumn("dbo.Movies", "GenreId");
             DropTable("dbo.Genres");
-        }
+			AlterColumn("dbo.Movies", "Name", c => c.String());
+		}
     }
 }
