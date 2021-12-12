@@ -4,6 +4,7 @@ using Vidly.Models;
 using System.Web.Mvc;
 using Vidly.ViewModels;
 using System.Data.Entity;
+using System.Data.Entity.Validation;
 
 namespace Vidly.Controllers {
 	public class MoviesController : Controller {
@@ -55,8 +56,8 @@ namespace Vidly.Controllers {
 				movieInDB.GenreId = movie.GenreId;
 				movieInDB.Stock = movie.Stock;
 			}
-			_Context.SaveChanges();
 
+			_Context.SaveChanges();
 			return RedirectToAction("Index", "Movies");
 		}
 
