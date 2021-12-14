@@ -5,7 +5,7 @@ namespace Vidly.Models {
 	public class Customer {
 		public int Id { get; set; }
 
-		[Required(ErrorMessage = "Este vampo es obligatorio")]
+		[Required(ErrorMessage = "Este campo es obligatorio")]
 		[StringLength(255)]
 		public string Name { get; set; }
 
