@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.Http;
+﻿using System.Web.Http;
+using Newtonsoft.Json.Serialization;
 
-namespace Vidly
-{
-    public static class WebApiConfig
-    {
-        public static void Register(HttpConfiguration config)
-        {
-            config.MapHttpAttributeRoutes();
+namespace Vidly {
+    public static class WebApiConfig {
+        public static void Register(HttpConfiguration config) {
+			var serializerSettings = config.Formatters.JsonFormatter.SerializerSettings;
+			serializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+			serializerSettings.Formatting = Newtonsoft.Json.Formatting.Indented;
+
+			config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
