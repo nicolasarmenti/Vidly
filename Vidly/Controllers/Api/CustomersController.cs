@@ -15,35 +15,35 @@ namespace Vidly.Controllers.Api {
 		}
 
 		//GET /api/customers
-		public IEnumerable<Customer> GetCustomers() {
-			return _Context.Customers.ToList();
+		public IHttpActionResult GetCustomers() {
+			return Ok(_Context.Customers.ToList());
 		}
 
 		//GET /api/customers/id
-		public Customer GetCustomers(int id) {
+		public IHttpActionResult GetCustomers(int id) {
 			var customer = _Context.Customers.SingleOrDefault(c => c.Id == id);
 
 			if (customer == null)
-				throw new HttpResponseException(HttpStatusCode.NotFound);
+				return NotFound();
 
-			return customer;
+			return Ok(customer);
 		}
 
 		//POST /api/customers
 		[HttpPost]
-		public Customer CreateCustomer(Customer customer) {
+		public IHttpActionResult CreateCustomer(Customer customer) {
 			if (!ModelState.IsValid)
-				throw new HttpResponseException(HttpStatusCode.BadRequest);
+				return BadRequest();
 
 			_Context.Customers.Add(customer);
 			_Context.SaveChanges();
 
-			return customer;
+			return Created(new Uri(Request.RequestUri + "/" + customer.Id), customer);
 		}
 
 		//PUT /api/customers/id
 		[HttpPut]
-		public void UpdateCustomer(int id, Customer customer) {
+		public IHttpActionResult UpdateCustomer(int id, Customer customer) {
 			if (!ModelState.IsValid)
 				throw new HttpResponseException(HttpStatusCode.BadRequest);
 
@@ -58,11 +58,13 @@ namespace Vidly.Controllers.Api {
 			customerInDB.MembershipTypeId = customer.MembershipTypeId;
 
 			_Context.SaveChanges();
+
+			return Ok(customer);
 		}
 
 		//DELETE /api/customers/id
 		[HttpDelete]
-		public void DeleteCustomer(int id) {
+		public IHttpActionResult DeleteCustomer(int id) {
 			var customerInDB = _Context.Customers.SingleOrDefault(c => c.Id == id);
 
 			if (customerInDB == null)
@@ -70,6 +72,8 @@ namespace Vidly.Controllers.Api {
 
 			_Context.Customers.Remove(customerInDB);
 			_Context.SaveChanges();
+
+			return Ok();
 		}
 
 
