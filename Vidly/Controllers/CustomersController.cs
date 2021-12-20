@@ -22,9 +22,9 @@ namespace Vidly.Controllers {
 
 			//var customers = _Context.Customers.ToList(); //inmediate execution
 			//var customers = _Context.Customers; //defered execution
-			var customers = _Context.Customers.Include(c => c.MembershipType); //defered execution + eager loading
+			//var customers = _Context.Customers.Include(c => c.MembershipType); //defered execution + eager loading
 
-			return View(customers);
+			return View();
 		}
 
 		[Route("customers/details/{id:range(1, 99999999)}")]
