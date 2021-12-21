@@ -3,6 +3,7 @@ using System.Net;
 using System.Linq;
 using Vidly.Models;
 using System.Web.Http;
+using System.Data.Entity;
 
 namespace Vidly.Controllers.Api {
     public class MoviesController : ApiController {
@@ -14,12 +15,12 @@ namespace Vidly.Controllers.Api {
 
 		//GET /api/movies
 		public IHttpActionResult GetMovies() {
-			return Ok(_Context.Movies.ToList());
+			return Ok(_Context.Movies.Include(m => m.Genre).ToList());
 		}
 
 		//GET /api/movies/id
 		public IHttpActionResult GetMovie(int id) {
-			var movie = _Context.Movies.SingleOrDefault(m => m.Id == id);
+			var movie = _Context.Movies.Include(m => m.Genre).SingleOrDefault(m => m.Id == id);
 
 			if (movie == null)
 				return NotFound();
