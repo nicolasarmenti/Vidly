@@ -3,6 +3,7 @@ using System.Net;
 using System.Linq;
 using Vidly.Models;
 using System.Web.Http;
+using System.Data.Entity;
 
 namespace Vidly.Controllers.Api {
     public class CustomersController : ApiController {
@@ -14,7 +15,7 @@ namespace Vidly.Controllers.Api {
 
 		//GET /api/customers
 		public IHttpActionResult GetCustomers() {
-			return Ok(_Context.Customers.ToList());
+			return Ok(_Context.Customers.Include(c => c.MembershipType).ToList());
 		}
 
 		//GET /api/customers/id
