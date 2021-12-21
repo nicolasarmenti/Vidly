@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Owin.Security;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Vidly.Controllers {
     [Authorize]
