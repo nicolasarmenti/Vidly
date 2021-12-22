@@ -2,6 +2,7 @@
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
+using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Vidly.Models {
@@ -13,7 +14,11 @@ namespace Vidly.Models {
             // Add custom user claims here
             return userIdentity;
         }
-    }
+
+		[Required]
+		[StringLength(255)]
+		public string DrivingLicence { get; set; }
+	}
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser> {
 		public DbSet<Customer> Customers { get; set; }
