@@ -18,6 +18,10 @@ namespace Vidly.Models {
 		[Required]
 		[StringLength(255)]
 		public string DrivingLicence { get; set; }
+
+		[Required]
+		[StringLength(15)]
+		public string Phone { get; set; }
 	}
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser> {
