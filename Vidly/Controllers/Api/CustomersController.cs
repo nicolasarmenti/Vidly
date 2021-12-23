@@ -14,8 +14,13 @@ namespace Vidly.Controllers.Api {
 		}
 
 		//GET /api/customers
-		public IHttpActionResult GetCustomers() {
-			return Ok(_Context.Customers.Include(c => c.MembershipType).ToList());
+		public IHttpActionResult GetCustomers(string query = null) {
+			var customersQuery = _Context.Customers.Include(c => c.MembershipType);
+
+			if (!string.IsNullOrWhiteSpace(query))
+				customersQuery = customersQuery.Where(c => c.Name.Contains(query));
+
+			return Ok(customersQuery.ToList());
 		}
 
 		//GET /api/customers/id
